@@ -1,42 +1,44 @@
-import java.util.*;
-
-public class Solution {
-        //给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。
-        //
-        //返回 s 所有可能的分割方案。
-        List <List<String>> res = new ArrayList<>();
-        public List<List<String>> partition(String s) {
-            dfs(s,0,new ArrayList<String>());
-            return res;
+import java.util.ArrayList;
+import java.util.List;
+// 回溯法三步骤：
+// 1. 选择当前一种结果
+// 2. 递归
+// 3. 删除当前选择（回溯）
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> res = new ArrayList<>();
+        List<String> one = new ArrayList<>();
+        dfs(s, 0, res, one);
+        return res;
+    }
+    void dfs(String s, int start, List<List<String>> res, List<String> one) {
+        // 递归结束条件，字符串遍历完成
+        if (start >= s.length()) {
+            List<String> t = new ArrayList<>(one);
+            res.add(t);
+            return;
         }
-        public void dfs(String s,int start,ArrayList<String> temp){
-            if(start == s.length()){
-                res.add(new ArrayList<>(temp));
-                return;
-            }
-            for(int i = start; i < s.length();i++){
-                String s1 = s.substring(start,i + 1);
-                if(!check(s1)){
-                    continue;
-                }
-                temp.add(s1);
-                dfs(s,i+1,temp);
-                temp.remove(temp.size()-1);
-            }
+        // 当前拆分出的字符串的结束位置
+        for (int i = start; i < s.length(); ++i) {
+            String a = s.substring(start, i + 1);
+            if (isPalindrome(a)) {
+                one.add(a);   // 放置
+                dfs(s, i + 1, res, one);   // 递归
+                one.remove(one.size() - 1);    // 删除当前的选择（回溯）
+            }   
         }
-        public boolean check(String s){
-            if(s.length() <= 1){
-                return true;
+    }
+    // 判断是否为回文串，也可以用动态规划，空间换时间 
+    boolean isPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
             }
-            int i = 0,j = s.length()-1;
-            while(i < j){
-                if(s.charAt(i)!=s.charAt(j)){
-                    return false;
-                }
-                i++;
-                j--;
-            }
-            return true;
+            ++i;
+            --j;
         }
+        return true;
+    }
 }
-
