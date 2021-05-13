@@ -7,7 +7,7 @@ class Solution {
             mapT[t.charAt(i) - 'A']++;
         }
         int left = 0, right = 0;
-        int match = 0;   // 已经匹配的字符数，==t.length()时说明能够覆盖
+        int match = 0;   // 已经匹配的字符数，==t.length()时说明能够覆盖。只有当某个字母的匹配数量足够时，才直接加上这个字母的数量，否则认为不能匹配
         int resStart = -1, resLen = Integer.MAX_VALUE;
         while (right < s.length()) {
             char c = s.charAt(right);
