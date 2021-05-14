@@ -1,19 +1,30 @@
-// 在左右子树都==null时才能回溯，一个为null则需继续搜索另一个子树
+// BFS求解，效率高于DFS
 class Solution {
     public int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        if (root.left == null && root.right == null) {
-            return 1;
+        int res = 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (q.isEmpty() == false) {
+            int size = q.size();
+            // 这一层的节点
+            for (int i = 0; i < size; ++i) {
+                TreeNode t = q.poll();
+                // 到了跟节点
+                if (t.left == null && t.right == null) {
+                    return res + 1;
+                }
+                if (t.left != null) {
+                    q.add(t.left);
+                }
+                if (t.right != null) {
+                    q.add(t.right);
+                }
+            }
+            ++res;
         }
-        int leftH = Integer.MAX_VALUE, rightH = Integer.MAX_VALUE;
-        if (root.left != null) {
-            leftH = minDepth(root.left);
-        }
-        if (root.right != null) {
-            rightH = minDepth(root.right);
-        }
-        return Math.min(leftH, rightH) + 1;
+        return res;
     }
 }
