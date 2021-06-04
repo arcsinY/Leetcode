@@ -3,33 +3,21 @@
 // 相遇时A走过的路程为a+b+c+1，B走过的路程为c+d+1+a = a+b+c+1
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
         ListNode p1 = headA, p2 = headB;
-        int tailA = 0, tailB = 0;
-        boolean tailAA = false, tailBB = false;
+        // 如果不相交，最终p1 == p2 == null
         while (p1 != p2) {
-            if (p1.next == null) {
-                tailA = p1.val;
-                tailAA = true;
-                if (tailBB && tailA != tailB) {
-                    return null;
-                }
-            }
-            if (p2.next == null) {
-                tailB = p2.val;
-                tailBB = true;
-                if (tailAA && tailA != tailB) {
-                    return null;
-                }
-            }
-            if (p1 != null && p2 != null) {
-                p1 = p1.next; 
-                p2 = p2.next;
-            }
             if (p1 == null) {
                 p1 = headB;
+            } else {
+                p1 = p1.next;
             }
             if (p2 == null) {
                 p2 = headA;
+            } else {
+                p2 = p2.next;
             }
         }
         return p1;
