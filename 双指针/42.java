@@ -3,7 +3,7 @@
 // 使用双指针对这种方法进行空间上的优化
 class Solution {
     public int trap(int[] height) {
-        int res = 0;
+        int ans = 0;
         int left = 0, right = height.length - 1;
         int leftMax = 0, rightMax = 0;
         while (left < right) {
@@ -11,13 +11,13 @@ class Solution {
             rightMax = Math.max(height[right], rightMax);
             // 左边的最大高度小，计算这个位置的雨水量
             if (leftMax < rightMax) {
-                res += leftMax - height[left];
+                ans += leftMax - height[left];
                 ++left;
             } else {
-                res += rightMax - height[right];
+                ans += rightMax - height[right];
                 --right;
             }
         }
-        return res;
+        return ans;
     }
 }
