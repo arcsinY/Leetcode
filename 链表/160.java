@@ -7,7 +7,7 @@ public class Solution {
             return null;
         }
         ListNode p1 = headA, p2 = headB;
-        // 如果不相交，最终p1 == p2 == null
+        // 如果不相交，最终p1 == p2 == null。因为两个指针都走过了两个链表长度之和的距离
         while (p1 != p2) {
             if (p1 == null) {
                 p1 = headB;
