@@ -18,11 +18,11 @@ func copyRandomList(head *Node) *Node {
 	}
 	ans := head.Next
 	for node := head; node != nil; node = node.Next {
-    // 提取新节点
+    	// 提取新节点
 		newNode := node.Next
 		node.Next = node.Next.Next
 		if newNode.Next != nil {
-      // 新节点的下一个节点
+      			// 新节点的下一个节点
 			newNode.Next = newNode.Next.Next
 		}
 	}
