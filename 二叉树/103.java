@@ -1,49 +1,42 @@
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-// 用栈实现锯齿遍历，当前行和下一行分别考虑
-class Solution {
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        List<Integer> one = new ArrayList<>();
-        Deque<TreeNode> q = new LinkedList<>();
-        if (root == null) {
-            return res;
+// 用栈存储一层中的节点，不能使用队列
+public class Solution {
+    public ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        if (pRoot == null) {
+            return ans;
         }
-        int thisLayer = 1;
-        int nextLayer = 0;
-        boolean flag = false;  // ==false说明下一行要求从右到左的遍历
-        q.push(root);
-        while (q.isEmpty() == false) {
-            Deque<TreeNode> next = new LinkedList<>();   // 下一行的节点
-            while (q.isEmpty() == false) {   // 遍历这一行
-                TreeNode t = q.pop();
+        Deque<TreeNode> q = new LinkedList<>();
+        q.addLast(pRoot);
+        boolean left = false;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            ArrayList<Integer> one = new ArrayList<>();
+            // 由于出栈入栈都在同一端，因此下一层的节点要用另一个栈存储，不能直接加载当前栈中
+            Deque<TreeNode> next = new LinkedList<>();
+            for (int i = 0; i < size; ++i) {
+                TreeNode t = q.removeLast();
                 one.add(t.val);
-                if (flag == false) {   // 从右到左，先加左孩子，后右孩子
+                if (!left) {
                     if (t.left != null) {
-                        next.push(t.left);
+                        next.addLast(t.left);
                     }
                     if (t.right != null) {
-                        next.push(t.right);
+                        next.addLast(t.right);
                     }
                 } else {
                     if (t.right != null) {
-                        next.push(t.right);
+                        next.addLast(t.right);
                     }
                     if (t.left != null) {
-                        next.push(t.left);
+                        next.addLast(t.left);
                     }
                 }
-
             }
-            ArrayList<Integer> tt = new ArrayList<>(one);
-            res.add(tt);
-            one.clear();
+            ans.add(one);
+            left = !left;
             q = next;
-            flag = !flag;
         }
-        return res;
+        return ans;
     }
 
 }
