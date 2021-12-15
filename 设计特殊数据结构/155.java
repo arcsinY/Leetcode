@@ -9,15 +9,13 @@ class MinStack {
         stack = new LinkedList<>();
         minStack = new LinkedList<>();
     }
-
+    
+    // 如果当前插入的数据不是最小元素，后续的min操作不可能返回这个元素
+    // 因为在这个元素之前进栈的有比它更小的
     public void push(int x) {
         stack.addFirst(x);
-        if (minStack.isEmpty() == true) {
+        if (minStack.isEmpty() || x <= minStack.getFirst()) {
             minStack.addFirst(x);
-        } else {
-            if (x <= minStack.getFirst()) {
-                minStack.addFirst(x);
-            }
         }
     }
 
