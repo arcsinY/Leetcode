@@ -1,24 +1,15 @@
-// 树的一个节点
 class TrieNode {
-    private TrieNode[] child;   // 孩子节点
+    private TrieNode[] child;
     private final int R = 26;
     boolean end;
     public TrieNode() {
         child = new TrieNode[R];
     }
-    // 查找有没有到连接下一层的字符c
-    public boolean containsChar(char c) {
-        if (child[c - 'a'] != null) {
-            return true;
-        }
-        return false;
-    }
     public TrieNode getChar(char c) {
         return child[c - 'a'];
     }
-    // 添加下一层
-    public void add(char c, TrieNode node) {
-        child[c - 'a'] = node;
+    public void add(char c) {
+        child[c - 'a'] = new TrieNode();
     }
     public boolean isEnd() {
         return end;
@@ -38,11 +29,11 @@ class Trie {
     public void insert(String word) {
         TrieNode node = root;
         for (int i = 0; i < word.length(); ++i) {
-            char t = word.charAt(i);
-            if (node.containsChar(t) == false) {
-                node.add(t, new TrieNode());
+            char c = word.charAt(i);
+            if (node.getChar(c) == null) {
+                node.add(c);
             }
-            node = node.getChar(t);
+            node = node.getChar(c);
         }
         node.setEnd();
     }
@@ -52,7 +43,7 @@ class Trie {
         TrieNode node = root;
         for (int i = 0; i < word.length(); ++i) {
             char c = word.charAt(i);
-            if (node.containsChar(c) == false) {
+            if (node.getChar(c) == null) {
                 return false;
             }
             node = node.getChar(c);
@@ -65,7 +56,7 @@ class Trie {
         TrieNode node = root;
         for (int i = 0; i < prefix.length(); ++i) {
             char c = prefix.charAt(i);
-            if (node.containsChar(c) == false) {
+            if (node.getChar(c) == null) {
                 return false;
             }
             node = node.getChar(c);
