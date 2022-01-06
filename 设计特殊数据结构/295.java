@@ -10,12 +10,7 @@ class MedianFinder {
     /** initialize your data structure here. */
     public MedianFinder() {
         cnt = 0;
-        low = new PriorityQueue<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2 - o1;
-            }
-        });
+        low = new PriorityQueue<>((a, b) -> b - a);
         high = new PriorityQueue<>();
     }
 
