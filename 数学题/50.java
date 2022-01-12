@@ -6,18 +6,18 @@ class Solution {
         if (n < 0) {  //只计算n>0的情况，若n<0最后对结果取倒数
             N *= -1;
         }
-        double res = 1;   
+        double ans = 1;   
         double base = x;    //每次要乘上的因子
         while (N > 0) {
             if ((N & 1) == 1) {   //取 N 的最低位，是 1 则乘上目前的因子
-                res *= base;
+                ans *= base;
             }
             base *= base;   //当前因子平方，代表从 x^2^i 计算出 x^2^(i+1)
             N >>= 1;  //N右移一位，等价于N/2。看下一个二进制位
         }
         if (n >= 0) {
-            return res;
+            return ans;
         }
-        return 1/res;
+        return 1/ans;
     }
 }
