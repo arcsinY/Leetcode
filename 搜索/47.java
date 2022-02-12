@@ -21,11 +21,13 @@ class Solution {
         }
         for(int i=0;i<nums.length;++i)
         {
-            if(used[i] == true)
+            if(used[i]) {
                 continue;
-            //used[i-1]==true，说明在同一分支上。used[i-1]==false，说明在同一层
-            if(i>0 && nums[i] == nums[i-1] && used[i-1]==false)
+            }
+            // used[i-1]==true，说明在同一分支上。used[i-1]==false，说明在同一层
+            if(i > 0 && nums[i] == nums[i-1] && !used[i-1]) {
                 continue;
+            }
             now.add(Integer.valueOf(nums[i]));
             used[i]=true;
             dfs(nums, res, now, used);
