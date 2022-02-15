@@ -14,8 +14,8 @@ class Solution {
             return;
         }
         for (int i = start; i <= 9; ++i) {
-            if ((sum + i) > n) {
-                continue;
+            if (sum + i > n) {
+                break;
             }
             one.add(i);
             dfs(res, one, k, n, sum + i, i + 1);
