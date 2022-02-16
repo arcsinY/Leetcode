@@ -3,7 +3,7 @@ class Solution {
     public boolean isAdditiveNumber(String num) {
         return backtrace(num, 0, 0, 0, 0);
     }
-    // sum：要找的数字，pre：前一个数字，count：已找到的数字
+    // sum：要找的数字，pre：前一个数字，count：已找到的数字个数
     public boolean backtrace(String num, int index, long sum, long pre, long count) {
         // 数字划分递归结束
         if (num.length() == index) {
