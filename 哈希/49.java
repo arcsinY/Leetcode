@@ -1,9 +1,7 @@
-import java.util.*;
-
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         int[] alphabet = new int[26];  //每个单词的字母表
-        Map<int[], Integer> alp_int = new HashMap<>();  //记录字母表和对应数组的index
+        Map<int[], Integer> alp_int = new HashMap<>();  //记录字母表和这种组合在 res 中的 index
         ArrayList<List<String>> res = new ArrayList<List<String>>();
         for(int i=0;i<strs.length;++i)
         {
@@ -31,6 +29,7 @@ class Solution {
             {
                 int[] alphabet2 = new int[26];
                 alphabet2 =  Arrays.copyOf(alphabet, 26);
+                // 加入一种新的组合方式
                 alp_int.put(alphabet2, alp_int.size());
                 ArrayList<String> tt = new ArrayList<>();
                 tt.add(strs[i]);
