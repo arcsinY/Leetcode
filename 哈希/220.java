@@ -23,7 +23,7 @@ class Solution {
             bin.put(id, (long)i);
             // 不在滑动窗口中的数据删掉
             if (i >= k) {
-                bin.remove(getId(nums[i], w));
+                bin.remove(getId(nums[i - k], w));
             }
         }
         return false;
