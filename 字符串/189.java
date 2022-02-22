@@ -1,5 +1,5 @@
-// 移动之后，后move个元素回到数组头部move个位置。原来的前n-move个回在后n-move个位置上
-// 先将数组反转，再将前move个和后n-move个反转
+// 移动之后，后 move 个元素变到数组头部 move 个位置，前 n-move 在后 n-move 个位置上
+// 先将数组反转，再将前 move 个和后 n-move 个反转
 class Solution {
     public void rotate(int[] nums, int k) {
         int n = nums.length;
