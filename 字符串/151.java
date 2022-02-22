@@ -12,8 +12,8 @@ class Solution {
     // 删去前缀、后缀、中间多余的空格
     public StringBuilder trim(String s) {
         StringBuilder res = new StringBuilder(s.length());
-        int p1 = 0;   // 第一个不是空格的位置
-        int p2 = s.length() - 1;    //会后一个不是空格的位置
+        int p1 = 0;   // 第一个不是空格的位置（实际的字符串开始）
+        int p2 = s.length() - 1;    //最后一个不是空格的位置（实际的字符串结尾）
         while (p1 < s.length() && s.charAt(p1) == ' ') {
             ++p1;
         }
