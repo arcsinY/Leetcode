@@ -1,3 +1,4 @@
+// 生成策略：找到一个小数和一个大数，交换位置，交换之后大数后面的数字要升序排列
 class Solution {
     public void nextPermutation(int[] nums) {
         int i;int j=nums.length-1;
