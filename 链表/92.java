@@ -1,6 +1,6 @@
 class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        if(head == null || n == 1){
+        if (head == null || n == 1) {
             return head;
         }
         ListNode pre = new ListNode(-1);
@@ -24,9 +24,9 @@ class Solution {
         }  // 循环结束后 cur 指向 n+1，pre 指向 n
         // 完成最后两步
         // subHead 不是真正链表中的节点，说明链表前一部分都被反转了，直接令反转后的头部（pre）作为 head
-        if(subHead.val != -1){
+        if (subHead.val != -1) {
             subHead.next = pre;
-        } else{
+        } else {
             head = pre;
         }
         subTail.next = cur;
