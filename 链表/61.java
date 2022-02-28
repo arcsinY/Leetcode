@@ -12,7 +12,8 @@ class Solution {
             return head;
         ListNode newHead = head;
         ListNode newTail = head;
-        int n=0;
+        // 链表长度
+        int n = 0;
         while(head.next !=null)  //链表形成环，计算长度
         {
             ++n;
@@ -21,7 +22,7 @@ class Solution {
         ++n;
         head.next = newHead;
         ListNode t = newHead;
-        for(int i=0;i<n-k%n-1;++i)  //找新链表的尾部
+        for(int i = 1;i <= n- k%n; i++)  //找新链表的尾部
         {
             t = t.next;
         }
