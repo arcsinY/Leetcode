@@ -6,11 +6,11 @@ func findMin(nums []int) int {
     right := len(nums) - 1
     for left < right {
         mid := left + (right - left) / 2
-        // 情况1：mid在交换点右侧，之后到左侧寻找（包含mid）
+        // 情况1：交换点在 mid 左侧（也可能就是mid），之后到左侧寻找（包含mid）
         if nums[mid] < nums[right] {
             right = mid
         } else {
-            // 请款2：交换点在mid右侧，之后在右侧寻找（不包含mid）
+            // 情况2：交换点在mid右侧，之后在右侧寻找（不包含mid）
             left = mid + 1
         }
     }
