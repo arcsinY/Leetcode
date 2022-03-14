@@ -1,89 +1,29 @@
-class Solution {
-    public String multiply(String num1, String num2) {
-        if(num1 == "0" || num2 == "0")
-            return String.valueOf(0);
-        String res=new String();
-        int len = num1.length()>num2.length()?num1.length():num2.length();
-        //令num1>num2
-        if(num1.length()< num2.length())
-        {
-            String t = num1;
-            num1=num2;
-            num2=t;
-        }
-        if(num1.length() == num2.length() && num1.charAt(0)<num2.charAt(0))
-        {
-            String t = num1;
-            num1=num2;
-            num2=t;
-        }
-        for(int i=num2.length()-1;i>=0;--i)
-        {
-            String t = multi(num1, Integer.valueOf(num2.charAt(i)-'0'), num2.length()-1-i);
-            res = sum(res,t);
-        }
-        return res;
+// 第 i 和第 j 位置上数据的相乘结果存在 ans[i + j + 1] 上，有进位将进位存在 ans[i + j] 上
+func multiply(num1 string, num2 string) string {
+    if num1 == "0" || num2 == "0" {
+        return "0"
     }
-    public String multi(String num, int num2, int zero)
-    {
-        StringBuffer res = new StringBuffer();
-        if(num2==0)
-            return String.valueOf(0);
-        int t=0,up=0,n=0;
-        for(int i=num.length()-1;i>=0;--i)
-        {
-           // System.out.println(Integer.valueOf(num.charAt(i)));
-            t = num2*Integer.valueOf(num.charAt(i)-'0')+up;
-            up = t/10;
-            n = t%10;
-            res.append(String.valueOf(n));
+    n := len(num1)
+    m := len(num2)
+    ans := make([]int, m + n)
+    for i := n - 1; i >= 0; i-- {
+        t1 := int(num1[i]) - '0'
+        for j := m - 1; j >= 0; j-- {
+            t2 := int(num2[j] - '0')
+            ans[i + j + 1] += t1 * t2
         }
-        if(up != 0)
-            res.append(String.valueOf(up));
-        res.reverse();
-        for(int i=0;i<zero;++i)
-        {
-            res.append(String.valueOf(0));
-        }
-        return res.toString();
     }
-
-    public String sum(String num1, String num2)
-    {
-        StringBuffer res = new StringBuffer();
-        //令num1>num2
-        if(num1.length()< num2.length())
-        {
-            String t = num1;
-            num1=num2;
-            num2=t;
-        }
-        if(num1.length() == num2.length() && num1.charAt(0)<num2.charAt(0))
-        {
-            String t = num1;
-            num1=num2;
-            num2=t;
-        }
-        int t=0,up=0,n=0;
-        int i,j;
-        for(i=num2.length()-1,j=num1.length()-1;i>=0 && j>=0;--i,--j)
-        {
-            t = Integer.valueOf(num2.charAt(i) - '0') + Integer.valueOf(num1.charAt(j) - '0') + up;
-            up = t/10;
-            n = t%10;
-            res.append(String.valueOf(n));
-        }
-        while(j>=0)
-        {
-            t = Integer.valueOf(num1.charAt(j)-'0')+up;
-            up = t/10;
-            n = t%10;
-            res.append(String.valueOf(n));
-            --j;
-        }
-        if(up != 0)
-            res.append(String.valueOf(up));
-        res.reverse();
-        return res.toString();
+    for i := m + n - 1; i > 0; i-- {
+        ans[i - 1] += ans[i] / 10;
+        ans[i] %= 10;
     }
+    ret := strings.Builder{}
+    idx := 0
+    if ans[0] == 0 {
+        idx = 1
+    }
+    for ; idx < m + n; idx++ {
+        ret.WriteString(strconv.Itoa(ans[idx]))
+    }
+    return ret.String()
 }
