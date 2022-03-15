@@ -3,7 +3,7 @@
 // (1) p 的第 j 个字符不是 * ，则 p 的第 j 个字符必须和 s 的第 i 个字符匹配
 // (2) p 的第 j 个字符是 * ，则：
 //     (2-1) p 的第 j-1 个字符不和 s 的第 i 个字符匹配，直接忽略 p 的第 j 和 j-1 个字符
-//     (2-2) p 的第 j-1 个字符和 s 的第 i 个字符匹配，同时可以和 s 前面的字符继续匹配
+//     (2-2) p 的第 j-1 个字符和 s 的第 i 个字符匹配，则可以和 s 前面的字符继续匹配，或者忽略掉 p 的第 j-1, j 两个个字符
 public class Solution {
     public boolean match (String str, String pattern) {
         int m = str.length();
