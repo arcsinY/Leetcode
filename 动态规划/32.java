@@ -9,6 +9,7 @@ class Solution {
             return 0;
         }
         int[] dp = new int[s.length()];
+        int ans = 0;
         for (int i = 1; i < s.length(); ++i) {
             if (s.charAt(i) == ')' && s.charAt(i-1) == '(') {
                 if (i >= 2) {
@@ -16,21 +17,17 @@ class Solution {
                 } else {
                     dp[i] = 2;
                 }
-            } else if (s.charAt(i) == ')' && s.charAt(i - 1) == ')' && (i-dp[i-1]-1) >= 0 && s.charAt(i-dp[i-1]-1) == '(') {   // i-dp[i-1]-1是以i-1为结尾的最长括号串的前一个位置
+            } else if (s.charAt(i) == ')' && s.charAt(i - 1) == ')' && (i-dp[i-1]-1) >= 0 && s.charAt(i-dp[i-1]-1) == '(') {
+                // i-dp[i-1]-1 是以 i-1 为结尾的最长括号串的第一个位置
                 if ((i-dp[i-1]-2) >= 0) {
-                    // dp[i - dp[i - 1] - 2]是更之前的一个括号串
+                    // dp[i - dp[i - 1] - 2] 是更之前的一个括号串的长度
                     dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2;
                 } else {
                     dp[i] = dp[i - 1] + 2;
                 }
             }
+            ans = Math.max(ans, dp[i]);
         }
-        int res = 0;
-        for (int i = 0; i < s.length(); ++i) {
-            if (dp[i] > res) {
-                res = dp[i];
-            }
-        }
-        return res;
+        return ans;
     }
 }
