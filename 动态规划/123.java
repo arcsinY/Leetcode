@@ -1,23 +1,20 @@
-// 后一天的更新只与前一天有关，因此直接使用变量记录前一天收益，更新变量。而不使用数组
+// dp[i][j][0]：第 i 天手里没有股票，之前最多进行过 j 次交易
+// dp[i][j][1]：第 i 天手里有股票，之前最多进行过 j 次交易
+// 只有买股票时算一次交易
 class Solution {
     public int maxProfit(int[] prices) {
-        // 第i天，最多交易过1次，手中没有股票的收益
-        int dp_i10 = 0;
-        // 第i天，最多交易过2次，手中没有股票的收益
-        int dp_i20 = 0;
-        // 第i天，最多交易过1次，手中有股票的收益
-        int dp_i11 = Integer.MIN_VALUE;
-        // 第i天，最多交易过2次，手中有股票的收益
-        int dp_i21 = Integer.MIN_VALUE;
-        for (int i : prices) {
-            // 目前手中没有股票，要么是前一天也没有，今天也没买；要么是前一天有，今天卖了
-            dp_i10 = Math.max(dp_i10, dp_i11 + i);
-            dp_i20 = Math.max(dp_i20, dp_i21 + i);
-            // 手中有股票，要么是前一天手中已经有股票了，今天不卖；要么是刚买的（之前没交易过，收益为0）
-            dp_i11 = Math.max(dp_i11, -i);
-            // 手中有股票，要么是前一天手中已经有股票了，今天不卖；要么是刚买的（之前可能交易过1次，并且卖了）
-            dp_i21 = Math.max(dp_i21, dp_i10 - i);
+        int n = prices.length;
+        int[][][] dp = new int[n][3][2];
+        dp[0][1][1] = -prices[0];
+        // 进行 0 次交易，手里不可能有股票
+        dp[0][0][1] = Integer.MIN_VALUE;
+        dp[0][2][1] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j <= 2; j++) {
+                dp[i][j][0] = Math.max(dp[i-1][j][0], dp[i-1][j][1] + prices[i]);
+                dp[i][j][1] = Math.max(dp[i-1][j][1], dp[i-1][j-1][0] - prices[i]);  // 买股票时将j-1，表示占用一次交易
+            }
         }
-        return dp_i20;
+        return dp[n-1][2][0];
     }
 }
