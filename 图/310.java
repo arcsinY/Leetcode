@@ -11,6 +11,7 @@ class Solution {
         for (int i = 0; i < n; ++i) {
             adjList.add(new ArrayList<>());
         }
+        // 建立邻接表
         for (int[] i : edges) {
             int a = i[0];
             int b = i[1];
@@ -19,6 +20,7 @@ class Solution {
             ++deg[a];
             ++deg[b];
         }
+        // 将 度 == 1 的顶点加入队列，作为 BFS 起点
         Queue<Integer> q = new LinkedList<>();
         boolean[] vis = new boolean[n];
         for (int i = 0; i < n; ++i) {
@@ -33,7 +35,7 @@ class Solution {
             for (int i = 0; i < size; ++i) {
                 int t = q.poll();
                 vis[t] = true;
-                // 当前最外围的节点直接加入结果中，但每次循环ans都是一个新的数组，因此直到最后一次BFS才会加入真正的结果
+                // 当前最外围的节点直接加入结果中，但每次循环 ans 都是一个新的数组，因此直到最后一次 BFS 才会加入真正的结果
                 ans.add(t);
                 for (int j = 0; j < adjList.get(t).size(); ++j) {
                     int t2 = adjList.get(t).get(j);
