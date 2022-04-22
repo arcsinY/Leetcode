@@ -17,6 +17,7 @@ class Codec {
     public void dfs(TreeNode root, StringBuilder s) {
         if (root == null) {
             s.append("null,");
+            return;
         }
         s.append(String.valueOf(root.val));
         dfs(root.left, s);
