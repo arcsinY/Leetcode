@@ -20,6 +20,7 @@ class Codec {
             return;
         }
         s.append(String.valueOf(root.val));
+        s.append(",");
         dfs(root.left, s);
         dfs(root.right, s);
     }
@@ -27,6 +28,7 @@ class Codec {
     public TreeNode dfs(List<String> s) {
         // 遇到"null"，这个节点是null
         if (s.get(0).equals("null")) {
+            s.remove(0);
             return null;
         }
         TreeNode res = new TreeNode();
