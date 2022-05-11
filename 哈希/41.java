@@ -14,7 +14,7 @@ class Solution {
         for (int i = 0; i < n; ++i) {
             int num = Math.abs(nums[i]);
             // >= n+1 的数字说明之前是负数，或者已经是超过答案的整数了，不用做标记
-            if (num < (n + 1)) {
+            if (num < n + 1) {
                 // 已经标记过的就不用重复标记了  
                 if (nums[num - 1] > 0) {
                     nums[num - 1] = -nums[num - 1];
